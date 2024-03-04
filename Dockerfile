@@ -6,6 +6,7 @@ WORKDIR /build
 
 # Copy the project files
 COPY src /build/src
+
 COPY pom.xml /build
 
 # Build the project
@@ -19,6 +20,10 @@ WORKDIR /app
 
 # Copy the built JAR file from the build stage
 COPY --from=builder /build/target/sudokugame-1.0-SNAPSHOT.jar /app/sudokugame.jar
+
+COPY web /app/web
+
+EXPOSE 80
 
 # Run the application
 CMD ["java", "-jar", "sudokugame.jar"]

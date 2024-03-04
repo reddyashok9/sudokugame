@@ -1,6 +1,5 @@
 package org.example;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -8,16 +7,17 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import com.google.gson.Gson;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(80), 0);
         server.createContext("/validate", new SudokuHandler());
         server.createContext("/", new StaticFileHandler());
         server.start();
-        System.out.println("Server started on port 8080");
+        System.out.println("Server started on port 80 is here");
     }
 
     static class SudokuHandler implements HttpHandler {
@@ -112,7 +112,7 @@ public class Main {
     static class StaticFileHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String filePath = "web/index.html"; // Path to your HTML file
+            String filePath = "/app/web/index.html"; // Path to your HTML file
             File file = new File(filePath);
             if (file.exists()) {
                 exchange.sendResponseHeaders(200, file.length());
